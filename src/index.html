@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<body>
+    <main>
+        <div class="app">
+            <h1>Lista de Tareas</h1>
+            <button onclick="getTasks()">Cargar Tareas</button>
+            <div class="task-form">
+                <input type="text" id="title" placeholder="Título de la tarea">
+                <input type="text" id="description" placeholder="Descripción de la tarea">
+                <select id="priority">
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Media</option>
+                    <option value="Baja">Baja</option>
+                </select>
+                <input type="date" id="dueDate">
+                <button onclick="addTask()">Agregar Tarea</button>
+            </div>
+            <ul id="task-list">
+                <!-- Tareas se mostrarán aquí -->
+            </ul>
+        </div>
+    </main>
+    <script src="./js/script.js"></script>
+</body>
+</html>
