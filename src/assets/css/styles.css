@@ -6,7 +6,7 @@ body {
 }
 
 .app {
-    max-width: 800px;
+    max-width: 1050px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -83,3 +83,4 @@ li button:not(:last-child) {
 li button:hover {
     background-color: #b21f2d;
 }
+
