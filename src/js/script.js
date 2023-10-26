@@ -13,7 +13,7 @@ function getTasks() {
             taskList.innerHTML = "";
             data.forEach((task) => {
                 const li = document.createElement("li");
-                li.innerHTML = `${task.title} - ${task.description} - ${task.completed} -${task.priority} - ${task.dueDate}`;
+                li.innerHTML = `${task.title} / ${task.description} / ${task.completed} / ${task.priority} / ${task.tag} / ${task.dueDate}`;
                 const editButton = document.createElement("button");
                 editButton.innerText = "Editar";
                 editButton.onclick = () => editTask(task.id);
@@ -32,7 +32,7 @@ function addTask() {
     const description = document.getElementById("description").value;
     const completed = document.getElementById("checkbox-input").checked;
     const priority = document.getElementById("priority").value;
-    const tag = "DFE 2023-2";
+    const tag = document.getElementById("tag").value;
     const dueDate = document.getElementById("dueDate").value;
     const data = {
         title,
@@ -59,65 +59,78 @@ function addTask() {
         });
 }
 
-function normalizeCompleted(completedValue) {
-    // Convierte el valor de "completed" a un booleano (true o false)
-    if (completedValue === "true" || completedValue === "1") {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function normalizePriority(completedValue) {
-    // Convierte el valor de "completed" a un booleano (true o false)
-    if (completedValue === "Baja" || completedValue === "1") {
-        return "Baja";
-    } else if (completedValue === "Media" || completedValue === "2") {
-        return "Media";
-    } else{
-        return "Alta";
-    }
-}
 
 function editTask(id) {
-    const title = prompt("Nuevo título de la tarea:");
-    if (title === null) {
-        return;
-    }
+        // Abre el modal para editar la tarea
+        const modal = document.getElementById("editTaskModal");
+        modal.style.display = "block";
+    
+        // Realiza una solicitud GET para obtener los datos de la tarea a editar
+        fetch(`${apiUrl}/${id}`, {
+        method: "GET",
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            const taskToEdit = data;
+            document.getElementById("editTitle").value = taskToEdit.title;
+            document.getElementById("editDescription").value = taskToEdit.description;
+            document.getElementById("editCompleted").value = taskToEdit.completed;
+            document.getElementById("editPriority").value = taskToEdit.priority;
+            document.getElementById("editTag").value = taskToEdit.tag;
+            document.getElementById("editDueDate").value = taskToEdit.dueDate;
+    
+            // Llama a la función saveEditedTask() cuando se hacen cambios y se guarda
+            document.getElementById("saveChangesButton").addEventListener("click", function() {
+            saveEditedTask(id, taskToEdit); // Pasa el ID y los datos de la tarea
+            });
+    
+        })
+        .catch((error) => {
+            console.error("Error al obtener los datos de la tarea: " + error);
+        });
+}
+function saveEditedTask(id, taskData) {
+        const title = document.getElementById("editTitle").value;
+        const description = document.getElementById("editDescription").value;
+        const completed = document.getElementById("editCompleted").value;
+        const priority = document.getElementById("editPriority").value;
+        const tag = document.getElementById("editTag").value;
+        const dueDate = document.getElementById("editDueDate").value;
 
-    const description = prompt("Nueva descripción de la tarea:");
-    const completedInput = prompt("¿Esta completado? (1=si y 2=no)")
-    const completed = normalizeCompleted(completedInput);
-    const priorityInput = prompt("Nueva prioridad de la tarea (1=Baja 2=Media 3=Alta):");
-    const priority = normalizePriority(priorityInput);
-    const dueDate = prompt("Nueva fecha de vencimiento (AAAA-MM-DD):");
-
-    const data = {
+        const data = {
         title,
         description,
         completed,
         priority,
+        tag,
         dueDate,
-    };
+        };
 
-    fetch(`${apiUrl}/${id}`, {
+        fetch(`${apiUrl}/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-    })
+        })
         .then((response) => {
             if (response.status === 200) {
-                // Tarea editada exitosamente
-                getTasks(); // Actualizar la lista de tareas después de editar
+            // Tarea editada exitosamente
+            getTasks(); // Actualizar la lista de tareas después de editar
+            closeEditTaskModal(); // Cierra el modal
             } else {
-                console.error("Error al editar la tarea");
+            console.error("Error al editar la tarea");
             }
         })
         .catch((error) => {
             console.error("Error al editar la tarea: " + error);
         });
+}
+
+function closeEditTaskModal() {
+    // Cierra el modal de edición
+    const modal = document.getElementById("editTaskModal");
+    modal.style.display = "none";
 }
 
 function deleteTask(id) {

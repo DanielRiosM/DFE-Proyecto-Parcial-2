@@ -4,9 +4,9 @@ body {
     padding: 0;
     background-color: #f0f0f0;
 }
-
+/* #region Inicio */
 .app {
-    max-width: 1050px;
+    max-width: 1250px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -84,3 +84,64 @@ li button:hover {
     background-color: #b21f2d;
 }
 
+/* #endrerion */
+
+/* #region Modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+
+.modal-content button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+/*#endregion*/

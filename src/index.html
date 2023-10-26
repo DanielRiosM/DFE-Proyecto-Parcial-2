@@ -3,6 +3,9 @@
 
 <head>
     <link rel="stylesheet" href="./assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -18,12 +21,30 @@
                     <option value="Media">Media</option>
                     <option value="Baja">Baja</option>
                 </select>
+                <input type="text" id="tag" placeholder="Tag">
                 <input type="date" id="dueDate">
                 <button onclick="addTask()">Agregar Tarea</button>
             </div>
             <ul id="task-list">
                 <!-- Tareas se mostrarán aquí -->
             </ul>
+        </div>
+
+        <!-- Modal para editar tarea -->
+        <div id="editTaskModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditTaskModal()">&times;</span>
+                <h2>Editar Tarea</h2>
+                <div class="edit-task-form">
+                    <input type="text" id="editTitle" placeholder="Nuevo título de la tarea">
+                    <input type="text" id="editDescription" placeholder="Nueva descripción de la tarea">
+                    <input type="text" id="editCompleted" placeholder="¿Está completado? (true o false)">
+                    <input type="text" id="editPriority" placeholder="Nueva prioridad de la tarea">
+                    <input type="text" id="editTag" placeholder="Tag">
+                    <input type="date" id="editDueDate">
+                    <button id="saveChangesButton">Guardar Cambios</button>
+                </div>
+            </div>
         </div>
     </main>
     <script src="./js/script.js"></script>
