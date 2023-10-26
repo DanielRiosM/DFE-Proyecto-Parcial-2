@@ -79,9 +79,8 @@ function editTask(id) {
             document.getElementById("editTag").value = taskToEdit.tag;
             document.getElementById("editDueDate").value = taskToEdit.dueDate;
     
-            // Llama a la función saveEditedTask() cuando se hacen cambios y se guarda
             document.getElementById("saveChangesButton").addEventListener("click", function() {
-            saveEditedTask(id, taskToEdit); // Pasa el ID y los datos de la tarea
+            saveEditedTask(id, taskToEdit); 
             });
     
         })
@@ -115,9 +114,8 @@ function saveEditedTask(id, taskData) {
         })
         .then((response) => {
             if (response.status === 200) {
-            // Tarea editada exitosamente
-            getTasks(); // Actualizar la lista de tareas después de editar
-            closeEditTaskModal(); // Cierra el modal
+            getTasks(); 
+            closeEditTaskModal(); 
             } else {
             console.error("Error al editar la tarea");
             }
@@ -128,7 +126,6 @@ function saveEditedTask(id, taskData) {
 }
 
 function closeEditTaskModal() {
-    // Cierra el modal de edición
     const modal = document.getElementById("editTaskModal");
     modal.style.display = "none";
 }
@@ -141,8 +138,7 @@ function deleteTask(id) {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    // Tarea eliminada exitosamente
-                    getTasks(); // Actualizar la lista de tareas después de eliminar
+                    getTasks();
                 } else {
                     console.error("Error al eliminar la tarea");
                 }
